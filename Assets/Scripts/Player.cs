@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     private  float moveInputX;
     //Bools
     private bool isGrounded;
-    private bool haveSock = false;
     //gameObjects
     public GameObject redSock;
     public GameObject redSock2;
@@ -51,16 +50,7 @@ public class Player : MonoBehaviour
 
 
     }
-    /*
-    public void OnCollisionEnter2D(Collision2D col)
-    {
-        isGrounded = true;
-    }
-    public void OnCollisionExit2D(Collision2D col)
-    {
-        isGrounded = false;
-    }
-    */
+    
     private void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.name == "RedSock1")
