@@ -11,29 +11,29 @@ public class Enemy : MonoBehaviour
     public Transform groundDetection;
 
     public LayerMask raycastMask;
-
+            //Variabler
     void Start()
     {
-        randomSpeed = Random.Range(2f, 3f);
+        randomSpeed = Random.Range(2f, 3f);     //Sätter en random speed på enemyn i början av spelet
     }
 
     void Update()
     {
         Debug.DrawRay(groundDetection.position, Vector2.down * 1);
-        RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, 1f);
-        if (groundInfo.collider == false)
+        RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, 1f);        //Skapar en Raycast so siktar rakt ner
+        if (groundInfo.collider == false)       //Om Raycasten inte colliderar med någonting...
         {
-            if(movingRight == true)
+            if(movingRight == true)     //Och om enemyn rör sig höger...
             {
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                movingRight = false;
+                transform.eulerAngles = new Vector3(0, -180, 0);        //Ska den vända sig till vänster och börja gå
+                movingRight = false;        //Samt sätter moving right till false
             }
             else
             {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                movingRight = true;
+                transform.eulerAngles = new Vector3(0, 0, 0);       //Om den redan går vänster ska den vända sig till höger och gå
+                movingRight = true;     //Samt sätta moving right till true
             }
         }
-        transform.Translate(Vector2.right * randomSpeed * Time.deltaTime);
+        transform.Translate(Vector2.right * randomSpeed * Time.deltaTime);      //Dunno
     }
 }
