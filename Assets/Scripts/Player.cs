@@ -45,28 +45,12 @@ public class Player : MonoBehaviour
         {
             moveInputX = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(moveInputX * speed, rb.velocity.y);
-            /*if (moveInputX < 0)
-            {
-                sprite.flipX = true;
-            }
             
-            if (rb.velocity.x > 0)
-            {
-                sprite.flipX = false;
-            }*/
             movement = rb.velocity.magnitude;
             animator.SetFloat("Horizontal", movement);
         }
 
-        /*if (Input.GetKeyDown(KeyCode.A))
-        {
-            transform.eulerAngles = new Vector3(0, -180, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            transform.eulerAngles = new Vector3(0, 0, 0);
-        }*/
+        
 
 
         if(Input.GetKeyDown(KeyCode.Space) && IsGrounded() && !isDead)

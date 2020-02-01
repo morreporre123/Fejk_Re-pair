@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5140160921405901900}
   - component: {fileID: 5140160921405901891}
   - component: {fileID: 5140160921405901890}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RedSock
   m_TagString: RedSock
   m_Icon: {fileID: 0}
