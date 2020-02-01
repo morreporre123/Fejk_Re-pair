@@ -49,6 +49,16 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jump);
         }
     
+        if(sockCount <= 0)
+        {
+            gameObject.layer = 9;
+        }
+
+        else
+        {
+            gameObject.layer = 10;
+        }
+
         if(sockCount == 2)
         {
             StartCoroutine(WaitForEndscreen(2));
@@ -59,15 +69,9 @@ public class Player : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.name == "RedSock1")
+        if (col.gameObject.tag == "RedSock")
         {
-            Destroy(redSock);
-            sockCount++;
-        }
-
-        if (col.gameObject.name == "RedSock2")
-        {
-            Destroy(redSock2);
+            Destroy(col.gameObject);
             sockCount++;
         }
     }

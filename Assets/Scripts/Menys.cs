@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Menys : MonoBehaviour
 {
-    public void Start()
+    public void StartGame()
     {
         SceneManager.LoadScene("Level");
     }
