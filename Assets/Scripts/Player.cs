@@ -45,11 +45,11 @@ public class Player : MonoBehaviour
         {
             moveInputX = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(moveInputX * speed, rb.velocity.y);
-            if (moveInputX < 0)
+            /*if (moveInputX < 0)
             {
                 sprite.flipX = true;
             }
-            /*
+            
             if (rb.velocity.x > 0)
             {
                 sprite.flipX = false;
