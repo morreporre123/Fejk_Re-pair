@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        Debug.DrawRay(groundDetection.position, Vector2.down * 1);
+        //Debug.DrawRay(groundDetection.position, Vector2.down * 1);
         RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, 1f);        //Skapar en Raycast so siktar rakt ner
         if (groundInfo.collider == false)       //Om Raycasten inte colliderar med någonting...
         {
