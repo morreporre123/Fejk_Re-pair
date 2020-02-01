@@ -46,8 +46,8 @@ public class GameController : MonoBehaviour
 
     public void playerWon()     //Om spelaren vinner..
     {
-        SceneManager.LoadScene("WinScreen");        //Laddar den WinScreenen
         Time.timeScale = 0f;        //Pausar all tid
         gameWon = true;     //Och sätter gameWon till true
+        SceneManager.LoadScene("WinScreen");        //Laddar den WinScreenen
     }
 }
