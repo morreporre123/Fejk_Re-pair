@@ -78,7 +78,6 @@ public class Player : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
             isDead = true;
-            Debug.Log("ok gamer");
             GameController.instance.playerDied();
         }
     }
