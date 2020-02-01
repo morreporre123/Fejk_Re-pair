@@ -40,7 +40,7 @@ public class GameController : MonoBehaviour
     }
     public void playerDied()        //Om spelaren dör...
     {
-        gameOverText.SetActive(true);       //Sätter den igång Game Over texten
+        //gameOverText.SetActive(true);       //Sätter den igång Game Over texten
         gameOver = true;        //Och sätter Game Over till true
     }
 

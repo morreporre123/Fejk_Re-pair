@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     private  float moveInputX;
     //Bools
     private bool isGrounded;
-    bool isDead;
+    bool isDead = false;
+    bool hasWon = false;
     //gameObjects
     public GameObject redSock;
     public GameObject redSock2;
@@ -36,10 +37,14 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         //Man får ett värde som multipliseras med "speed" för att bestämma velocity;
-        moveInputX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInputX * speed, rb.velocity.y);
+        if (!isDead)
+        {
+            moveInputX = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(moveInputX * speed, rb.velocity.y);
+        }
 
-        if(Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+
+        if(Input.GetKeyDown(KeyCode.Space) && IsGrounded() && !isDead)
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);
         }
@@ -73,8 +78,8 @@ public class Player : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
             isDead = true;
-            GameController.instance.playerDied();
             Debug.Log("ok gamer");
+            GameController.instance.playerDied();
         }
     }
 
