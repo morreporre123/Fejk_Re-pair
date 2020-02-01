@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     //Floats
     public float speed = 6f;
-    public float jump = 10;
+    public float jump = 9;
     private  float moveInputX;
     //Bools
     private bool isGrounded;
