@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private  float moveInputX;
     //Bools
     private bool isGrounded;
+    bool isDead;
     //gameObjects
     public GameObject redSock;
     public GameObject redSock2;
@@ -63,6 +64,16 @@ public class Player : MonoBehaviour
         {
             Destroy(redSock2);
             sockCount++;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+       if(collision.gameObject.tag == "Enemy" && sockCount == 1)
+        {
+            rb.velocity = Vector2.zero;
+            isDead = true;
+            GameController.instance.playerDied();
         }
     }
 
