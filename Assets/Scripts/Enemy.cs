@@ -36,4 +36,21 @@ public class Enemy : MonoBehaviour
         }
         transform.Translate(Vector2.right * randomSpeed * Time.deltaTime);      //Dunno
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            if (movingRight)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+                movingRight = false;
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                movingRight = true;
+            }
+        }
+    }
 }

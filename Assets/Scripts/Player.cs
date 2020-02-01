@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     //Bools
     private bool isGrounded;
     bool isDead = false;
+    bool facingRight = true;
     //gameObjects
     public GameObject redSock;
     public GameObject redSock2;
@@ -28,6 +29,8 @@ public class Player : MonoBehaviour
     public Animator animator;
 
     public SpriteRenderer sprite;
+
+    public Transform player;
 
     void Start()
     {
@@ -45,29 +48,9 @@ public class Player : MonoBehaviour
         {
             moveInputX = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(moveInputX * speed, rb.velocity.y);
-            /*if (moveInputX < 0)
-            {
-                sprite.flipX = true;
-            }
-            
-            if (rb.velocity.x > 0)
-            {
-                sprite.flipX = false;
-            }*/
             movement = rb.velocity.magnitude;
             animator.SetFloat("Horizontal", movement);
         }
-
-        /*if (Input.GetKeyDown(KeyCode.A))
-        {
-            transform.eulerAngles = new Vector3(0, -180, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            transform.eulerAngles = new Vector3(0, 0, 0);
-        }*/
-
 
         if(Input.GetKeyDown(KeyCode.Space) && IsGrounded() && !isDead)
         {
@@ -90,7 +73,17 @@ public class Player : MonoBehaviour
             StartCoroutine(WaitForEndscreen(2));
         }
 
+        Vector3 characterScale = transform.localScale;
+        if (Input.GetAxisRaw("Horizontal") < 0)
+        {
+            characterScale.x = -10;
+        }
 
+        if (Input.GetAxisRaw("Horizontal") > 0)
+        {
+            characterScale.x = 10;
+        }
+        transform.localScale = characterScale;
     }
     
     private void OnTriggerEnter2D(Collider2D col)
@@ -104,7 +97,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       if(collision.gameObject.tag == "Enemy" && sockCount == 1)
+       if(collision.gameObject.tag == "Enemy" && sockCount >= 1)
         {
             rb.velocity = Vector2.zero;
             isDead = true;
