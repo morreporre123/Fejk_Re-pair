@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float speed = 6f;
     public float jump = 9;
     private  float moveInputX;
+    private float movement;
     //Bools
     private bool isGrounded;
     bool isDead = false;
@@ -24,11 +25,15 @@ public class Player : MonoBehaviour
     //layermask
     [SerializeField]
     LayerMask jumpable;
-    
+    //Animator
+    public Animator animator;
+
+    public SpriteRenderer sprite;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         groundCollider = transform.Find("GroundCheck").GetComponentInChildren<Collider2D>();
     }
 
@@ -41,11 +46,33 @@ public class Player : MonoBehaviour
         {
             moveInputX = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(moveInputX * speed, rb.velocity.y);
+            if (moveInputX < 0)
+            {
+                sprite.flipX = true;
+            }
+            /*
+            if (rb.velocity.x > 0)
+            {
+                sprite.flipX = false;
+            }*/
+            movement = rb.velocity.magnitude;
+            animator.SetFloat("Horizontal", movement);
         }
+
+        /*if (Input.GetKeyDown(KeyCode.A))
+        {
+            transform.eulerAngles = new Vector3(0, -180, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }*/
 
 
         if(Input.GetKeyDown(KeyCode.Space) && IsGrounded() && !isDead)
         {
+            Debug.Log("bruh");
             rb.velocity = new Vector2(rb.velocity.x, jump);
         }
     
