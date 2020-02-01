@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     //Bools
     private bool isGrounded;
     bool isDead = false;
-    bool hasWon = false;
     //gameObjects
     public GameObject redSock;
     public GameObject redSock2;
