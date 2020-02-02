@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private  float moveInputX;
     private float movement;
     //Bools
-    private bool isGrounded;
+    public bool air;
     bool isDead = false;
     bool facingRight = true;
     //gameObjects
@@ -44,6 +44,11 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         //Man får ett värde som multipliseras med "speed" för att bestämma velocity;
+
+        if (IsGrounded())
+        {
+            air = false;
+        }
         if (!isDead)
         {
             moveInputX = Input.GetAxisRaw("Horizontal");
@@ -51,12 +56,12 @@ public class Player : MonoBehaviour
 
             movement = rb.velocity.magnitude;
             animator.SetFloat("Horizontal", movement);
+            animator.SetBool("Air", air);
         }
 
 
         if(Input.GetKeyDown(KeyCode.Space) && IsGrounded() && !isDead)
         {
-            Debug.Log("bruh");
             rb.velocity = new Vector2(rb.velocity.x, jump);
         }
     
@@ -109,7 +114,9 @@ public class Player : MonoBehaviour
 
     bool IsGrounded()
     {
+        
         return groundCollider.IsTouchingLayers(jumpable);
+        
     }
 
     IEnumerator WaitForEndscreen(float waitTime)
