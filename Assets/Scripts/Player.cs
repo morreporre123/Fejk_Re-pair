@@ -12,12 +12,12 @@ public class Player : MonoBehaviour
     private  float moveInputX;
     private float movement;
     //Bools
-    public bool air;
+    public bool air = false;
     bool isDead = false;
     bool facingRight = true;
+    bool redSock = false;
     //gameObjects
-    public GameObject redSock;
-    public GameObject redSock2;
+    
     //ints
     private int sockCount = 0;
     //Colliders
@@ -39,30 +39,35 @@ public class Player : MonoBehaviour
         groundCollider = transform.Find("GroundCheck").GetComponentInChildren<Collider2D>();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && !isDead)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jump);
+            animator.SetBool("Air", true);
+        }
 
+        if (IsGrounded() && rb.velocity.y < jump - 1)
+        {
+            animator.SetBool("Air", false);
+        }
+    }
 
     void FixedUpdate()
     {
         //Man får ett värde som multipliseras med "speed" för att bestämma velocity;
-
-        if (IsGrounded())
-        {
-            air = false;
-        }
         if (!isDead)
         {
             moveInputX = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(moveInputX * speed, rb.velocity.y);
 
+            if (sockCount >= 1)
+            {
+                redSock = true;
+            }
             movement = rb.velocity.magnitude;
             animator.SetFloat("Horizontal", movement);
-            animator.SetBool("Air", air);
-        }
-
-
-        if(Input.GetKeyDown(KeyCode.Space) && IsGrounded() && !isDead)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jump);
+            animator.SetBool("redSock", redSock);
         }
     
         if(sockCount <= 0)
@@ -106,7 +111,7 @@ public class Player : MonoBehaviour
     {
        if(collision.gameObject.tag == "Enemy" && sockCount >= 1)
         {
-            rb.velocity = Vector2.zero;
+            //rb.velocity = Vector2.zero;
             isDead = true;
             GameController.instance.playerDied();
         }
@@ -114,10 +119,12 @@ public class Player : MonoBehaviour
 
     bool IsGrounded()
     {
-        
+        //animator.SetBool("Air", false);
         return groundCollider.IsTouchingLayers(jumpable);
-        
+
     }
+
+
 
     IEnumerator WaitForEndscreen(float waitTime)
     {
